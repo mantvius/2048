@@ -40,7 +40,7 @@ def merge(line):
     temp_list = remove_zeros(line)
 
     if len(temp_list) < 2:
-        for dummy in range(len(line) - len(temp_list)):
+        for dummy_cell in range(len(line) - len(temp_list)):
             temp_list.append(0)
         return temp_list
 
@@ -77,8 +77,8 @@ class TwentyFortyEight:
     """
 
     def __init__(self, grid_height, grid_width):
-        self.height = grid_height
-        self.width = grid_width
+        self._height = grid_height
+        self._width = grid_width
         self.reset()
 
     def reset(self):
@@ -86,7 +86,7 @@ class TwentyFortyEight:
         Reset the game so the grid is empty except for two
         initial tiles.
         """
-        self.grid = [[0 for dummy_col in range(self.width)] for dummy_row in range(self.height)]
+        self._grid = [[0 for dummy_col in range(self._width)] for dummy_row in range(self._height)]
         self.new_tile()
         self.new_tile()
 
@@ -94,23 +94,22 @@ class TwentyFortyEight:
         """
         Return a string representation of the grid for debugging.
         """
-        representation = "Print out values in grid\n"
-        for row in range(self.height):
-            representation += str(self.grid[row]) + "\n"
+        representation = "The values of the grid:\n"
+        for row in range(self._height):
+            representation += str(self._grid[row]) + "\n"
         return representation
-
 
     def get_grid_height(self):
         """
         Get the height of the board.
         """
-        return self.height
+        return self._height
 
     def get_grid_width(self):
         """
         Get the width of the board.
         """
-        return self.width
+        return self._width
 
     def move(self, direction):
         """
@@ -126,42 +125,42 @@ class TwentyFortyEight:
         The tile should be 2 90% of the time and 4 10% of the time.
         """
         empty_cells = []
-        for row in range(self.height):
-            for col in range(self.width):
-                if self.grid[row][col] == 0:
-                    empty_cells.append((row,col))
+        for row in range(self._height):
+            for col in range(self._width):
+                if self._grid[row][col] == 0:
+                    empty_cells.append((row, col))
         print "empty", empty_cells
         if not empty_cells:
             print "no empty cells"
             return
 
         value_randomize = random.randint(1, 10)
-        if value_randomize == 5: tile_value = 4
-        else: tile_value = 2
-        print "value", tile_value
+        if value_randomize == 5:
+            tile_value = 4
+        else:
+            tile_value = 2
 
         random_cell = random.choice(empty_cells)
-        print "random cell", random_cell
-        self.grid[random_cell[0]][random_cell[1]] = tile_value
+        self._grid[random_cell[0]][random_cell[1]] = tile_value
 
     def set_tile(self, row, col, value):
         """
         Set the tile at position row, col to have the given value.
         """
-        self.grid[row][col] = value
+        self._grid[row][col] = value
 
     def get_tile(self, row, col):
         """
         Return the value of the tile at position row, col.
         """
-        return self.grid[row][col]
+        return self._grid[row][col]
 
 # While you are implementing the TwentyFortyEight class, you should comment out these two lines
 # and test each method individually using your test suite.
 # Once your code has passed these tests, you can uncomment the two lines that import and run the GUI.
 # poc_2048_gui.run_gui(TwentyFortyEight(5, 4))
 
-new_grid = TwentyFortyEight(5,4)
+new_grid = TwentyFortyEight(5, 4)
 
 print str(new_grid)
 
