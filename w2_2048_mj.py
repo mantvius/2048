@@ -166,20 +166,15 @@ class TwentyFortyEight:
             num_steps = self._width
 
         for init_tile in init_list:
-            #print "starting with tile " + str(init_tile)
             list_values = []
             for step in range(num_steps):
                 row = init_tile[0] + step * direction_tuple[0]
                 col = init_tile[1] + step * direction_tuple[1]
-                #print "Processing cell", (row, col),
-                #print "with value", self._grid[row][col]
                 list_values.append(self._grid[row][col])
-            #print "list_values", list_values
             merged_line = merge(list_values)
             for tile in merged_line:
                 if tile == 2048:
                     self.game_over(True)
-            #print "merged_line", merged_line
             if merged_line != list_values:
                 move_made = True
             for step in range(num_steps):
@@ -189,7 +184,6 @@ class TwentyFortyEight:
 
         if move_made:
             self.new_tile()
-
 
     def new_tile(self):
         """
