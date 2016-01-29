@@ -2,12 +2,12 @@
 Clone of 2048 game.
 """
 
-# import poc_2048_gui
+import poc_2048_gui
 import random
-# try:
-#     import simplegui
-# except ImportError:
-#     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
+try:
+    import simplegui
+except ImportError:
+    import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
 
 # Directions, DO NOT MODIFY
@@ -156,9 +156,7 @@ class TwentyFortyEight:
         """
         move_made = False
         init_list = self._init_lists[direction]
-        print "init_list", init_list
         direction_tuple = OFFSETS[direction]
-        print "direction_tuple", direction_tuple
 
         if direction == 1 or direction == 2:
             num_steps = self._height
@@ -195,9 +193,6 @@ class TwentyFortyEight:
             for col in range(self._width):
                 if self._grid[row][col] == 0:
                     empty_cells.append((row, col))
-        if not empty_cells:
-            print "no empty cells"
-            self.game_over(False)
 
         value_randomize = random.randint(1, 10)
         if value_randomize == 5:
@@ -207,6 +202,9 @@ class TwentyFortyEight:
 
         random_cell = random.choice(empty_cells)
         self._grid[random_cell[0]][random_cell[1]] = tile_value
+        if len(empty_cells) <=1:
+            print "no empty cells"
+            self.game_over(False)
 
     def set_tile(self, row, col, value):
         """
@@ -220,10 +218,8 @@ class TwentyFortyEight:
         """
         return self._grid[row][col]
 
-# While you are implementing the TwentyFortyEight class, you should comment out these two lines
-# and test each method individually using your test suite.
-# Once your code has passed these tests, you can uncomment the two lines that import and run the GUI.
-# poc_2048_gui.run_gui(TwentyFortyEight(5, 4))
+
+poc_2048_gui.run_gui(TwentyFortyEight(4, 4))
 
 # New_grid = TwentyFortyEight(3, 5)
 # print str(New_grid)
